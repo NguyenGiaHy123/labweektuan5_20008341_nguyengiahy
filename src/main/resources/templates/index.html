@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+</head>
+<style>
+
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .input-group {
+        position: relative;
+    }
+
+    .error-message {
+        color: #dc3545;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+     .card-body{
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         min-height: 100vh;
+         background-image: url("https://upload.wikimedia.org/wikipedia/commons/e/e9/Blank_page.jpg");
+         background-size: cover;
+         background-repeat: no-repeat;
+
+
+     }
+    .btn-dark {
+        background-color: #343a40;
+        color: #fff;
+    }
+    .card-body1{
+        background-color: white;
+        width: 400px;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+</style>
+<body>
+<div class="card-body custom-form">
+    <div class="card-body1 custom-form">
+        <form th:object="${user}" th:action="@{/candidates/check-login}" method="post" class="custom-form" novalidate>
+            <!-- Username input -->
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-dark btn-block">
+                Login
+            </button>
+
+            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/register-candidate" class="link-danger">Register</a></p>
+        </form>
+    </div>
+
+</div>
+
+
+</body>
+</html>
