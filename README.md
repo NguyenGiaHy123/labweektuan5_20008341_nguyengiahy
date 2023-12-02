@@ -1,6 +1,5 @@
 
-# lab week tuan 6
-
+# lab week tuan 5
 
 ## Chức năng login
 ![img.png](img.png)
