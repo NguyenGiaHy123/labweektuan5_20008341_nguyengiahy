@@ -51,27 +51,15 @@ public class CompanyController {
     public String checkLogin(Model model,
                              @ModelAttribute("user") User user) {
         Company company = (Company) companyService.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-        if (company!=null){
-            model.addAttribute("company-account", company);
-            return "redirect:/companies/info";
-        }
-        else {
-            return "redirect:/login-company";
-        }
-    }
-
-    @GetMapping("/register-company")
-    public ModelAndView registerCompany(){
-        ModelAndView modelAndView = new ModelAndView();
-        Company company = new Company();
-        company.setAddress(new Address());
-        company.setUser(new User());
-        modelAndView.addObject("company", company);
-        modelAndView.addObject("address", company.getAddress());
-        modelAndView.addObject("user", company.getUser());
-        modelAndView.addObject("countries", CountryCode.values());
-        modelAndView.setViewName("companies/registerCompany");
-        return modelAndView;
+   System.out.println(company.getAbout());
+        return "redirect:/login-company";
+//        if (company!=null){
+//            model.addAttribute("company-account", company);
+//            return "redirect:/companies/info";
+//        }
+//        else {
+//            return "redirect:/login-company";
+//        }
     }
 
     @PostMapping("/companies/add")
@@ -100,43 +88,6 @@ public class CompanyController {
         return modelAndView;
     }
 
-    @PostMapping("/companies/update")
-    public ModelAndView updateCompany(
-            Model model,
-            @ModelAttribute("company") Company company,
-            @ModelAttribute("address") Address address,
-            @ModelAttribute("user") User user) {
-        ModelAndView modelAndView = new ModelAndView();
-        Optional<Company> company1 = companyRepository.findById(company.getId());
-        if (company1.isPresent()){
-            Optional<Address> address1 = addressRepository.findById(company.getAddress().getId());
-            if (address1.isPresent()){
-                address1.get().setNumber(address.getNumber());
-                address1.get().setStreet(address.getStreet());
-                address1.get().setCity(address.getCity());
-                address1.get().setCountry(address.getCountry());
-                address1.get().setZipcode(address.getZipcode());
-                addressRepository.save(address1.get());
-                company1.get().setAddress(address1.get());
-            }
-            Optional<User> user1 = userRepository.findById(user.getUsername());
-            if(user1.isPresent()){
-                user1.get().setUserType(UserType.COMPANY_USER);
-                user1.get().setPassword(user.getPassword());
-                userRepository.save(user1.get());
-                company1.get().setUser(user1.get());
-            }
-            company1.get().setName(company.getName());
-            company1.get().setAbout(company.getAbout());
-            company1.get().setEmail(company.getEmail());
-            company1.get().setPhone(company.getPhone());
-            company1.get().setWebURL(company.getWebURL());
-            companyRepository.save(company1.get());
-        }
-        model.addAttribute("company-account", company1.get());
-        modelAndView.setViewName("redirect:/companies/info");
-        return modelAndView;
-    }
 
     @GetMapping("/companies/jobs")
     public String showJobOfCompany(Model model,

@@ -66,7 +66,9 @@ public class Candidate {
         this.email = email;
         this.address = address;
     }
-
+    public Candidate getCandidate() {
+        return this;
+    }
     public long getId() {
         return id;
     }

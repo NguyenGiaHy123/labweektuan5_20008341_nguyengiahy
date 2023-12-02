@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Experiences</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+.forminfor{
+width: 100%;
+min-height: 100vh;
+background-image: url("https://img4.thuthuatphanmem.vn/uploads/2020/12/25/background-bang-tuyen-dung_055954661.jpg");
+background-repeat: no-repeat;
+background-size: cover;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.inforuser{
+
+width: 40%;
+background: white;
+box-shadow: 0px 1px 1px #949393;
+border: 1px solid;
+padding: 10px;
+
+}
+</style>
+<body>
+
+<div class="forminfor">
+    <div class="container inforuser  mt-5">
+        <div class="m-2">
+
+            <div class="row">
+                <div class="col-md-10 offset-md-1 mt-5">
+                    <h2 class="text-center mb-4">Chi tiet cong viec </h2>
+                    <form th:object="${job}">
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>id:</td>
+                                <td th:text="${company.id}"></td>
+                            </tr>
+
+                            <tr>
+                                <td>Name:</td>
+                                <td th:text="${company.name}"></td>
+                            </tr>
+                            <tr>
+                                <td>About:</td>
+                                <td th:text="${company.about}"></td>
+                            </tr>
+                            <tr>
+                                <td>Address Number:</td>
+                                <td th:text="${company.address.number}"></td>
+                            </tr>
+                            <tr>
+                                <td>Street:</td>
+                                <td th:text="${company.address.street}"></td>
+                            </tr>
+                            <tr>
+                                <td>City:</td>
+                                <td th:text="${company.address.city}"></td>
+                            </tr>
+                            <tr>
+                                <td>Country:</td>
+                                <td th:text="${company.address.country.name}"></td>
+                            </tr>
+                            <tr>
+                                <td>Zip Code:</td>
+                                <td th:text="${company.address.zipcode}"></td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td th:text="${company.email}"></td>
+                            </tr>
+                            <tr>
+                                <td>Phone:</td>
+                                <td th:text="${company.phone}"></td>
+                            </tr>
+                            <tr>
+                                <td>URL:</td>
+                                <td th:text="${company.webURL}"></td>
+                            </tr>
+                        </table>
+
+                        <div class="row">
+                            <h5>cong viec ky nang </h5>
+                        </div>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Level</th>
+                                <th scope="col">More Info</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="jobSkill : ${jobSkills}">
+                                <td th:text="${jobSkill.skill.id}"></td>
+                                <td th:text="${jobSkill.skill.skillName}"></td>
+                                <td th:text="${jobSkill.skill.type}"></td>
+                                <td th:text="${jobSkill.skill.skillDescription}"></td>
+                                <td th:text="${jobSkill.skillLevel}"></td>
+                                <td th:text="${jobSkill.moreInfo}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

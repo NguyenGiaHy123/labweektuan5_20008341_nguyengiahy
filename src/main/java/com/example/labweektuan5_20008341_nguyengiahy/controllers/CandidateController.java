@@ -39,9 +39,7 @@ public class CandidateController {
                                           @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
-        /*Page<Candidate> candidatePage= candidateServices.findPaginated(
-                PageRequest.of(currentPage - 1, pageSize)
-        );*/
+
         Page<Candidate> candidatePage = candidateServices.findAll(currentPage - 1,
                 pageSize, "id", "asc");
 
@@ -57,28 +55,6 @@ public class CandidateController {
         return "candidates/listCandidate";
     }
 
-    @GetMapping("/login-candidate")
-    public ModelAndView loginCandidate(){
-        ModelAndView modelAndView = new ModelAndView();
-        User user = new User();
-        modelAndView.addObject("user", user);
-        modelAndView.setViewName("candidates/loginCandidate");
-        return modelAndView;
-    }
-
-    @GetMapping("/register-candidate")
-    public ModelAndView registerCandidate(){
-        ModelAndView modelAndView = new ModelAndView();
-        Candidate candidate = new Candidate();
-        candidate.setAddress(new Address());
-        candidate.setUser(new User());
-        modelAndView.addObject("candidate", candidate);
-        modelAndView.addObject("address", candidate.getAddress());
-        modelAndView.addObject("user", candidate.getUser());
-        modelAndView.addObject("countries", CountryCode.values());
-        modelAndView.setViewName("candidates/registerCandidate");
-        return modelAndView;
-    }
 
     @PostMapping("/candidates/add")
     public String addCandidate(
@@ -139,20 +115,14 @@ public class CandidateController {
         System.out.println(user.getUsername());
         if (candidate!=null){
             model.addAttribute("candidate-account", candidate);
-            return "candidates/inforloginuser";
+            return "redirect:/candidates/inforloginuser";
         }
         else {
             return "index";
         }
     }
 
-//    @GetMapping("/candidates/inforloginuser")
-//    public String showInforLoginUser() {
-//
-//        return "candidates/inforloginuser";
-//    }
-
-    @GetMapping ("/candidates/info")
+    @GetMapping("/candidates/inforloginuser")
     public ModelAndView candidateInfo(
             @SessionAttribute("candidate-account") Candidate candidate) {
         ModelAndView modelAndView = new ModelAndView();
@@ -160,9 +130,10 @@ public class CandidateController {
         modelAndView.addObject("address", candidate.getAddress());
         modelAndView.addObject("user", candidate.getUser());
         modelAndView.addObject("countries", CountryCode.values());
-        modelAndView.setViewName("candidates/candidateInformation");
+        modelAndView.setViewName("/candidates/inforloginuser");
         return modelAndView;
     }
+
 
     @GetMapping("/candidates/detail/{id}")
     public ModelAndView showCandidateDetail(@PathVariable("id") long id) {

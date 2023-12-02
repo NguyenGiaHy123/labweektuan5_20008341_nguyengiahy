@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Company Information</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+
+    .forminfor{
+        width: 100%;
+        min-height: 100vh;
+        background-image: url("https://img4.thuthuatphanmem.vn/uploads/2020/12/25/background-bang-tuyen-dung_055954661.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .inforuser{
+
+        width: 40%;
+        background: white;
+        box-shadow: 0px 1px 1px #949393;
+        border: 1px solid;
+        padding: 10px;
+
+    }
+</style>
+
+<body>
+<div class="forminfor">
+    <div class="container inforuser  mt-5">
+        <h2 class="text-center mb-4">Hien thi thong tin Cong ty</h2>
+        <form th:object="${company}" th:action="@{/companies/update}" method="post">
+            <input type="hidden" id="can-id" class="form-control" th:field="*{id}"/>
+
+            <div class="mb-3">
+                <label class="form-label">Username:</label>
+                <input type="text" class="form-control"  th:field="${user.username}"/>
+            </div>
+
+
+
+            <div class="mb-3">
+                <label class="form-label">Company Name:</label>
+                <input type="text" class="form-control" th:field="*{name}"/>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">About:</label>
+                <input type="text" class="form-control" th:field="*{about}"/>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Phone:</label>
+                    <input type="tel" class="form-control" th:field="*{phone}"/>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Email:</label>
+                    <input type="email" class="form-control" placeholder="Email" th:field="*{email}"/>
+                </div>
+            </div>
+
+
+            <input type="hidden" id="add-id" class="form-control" th:field="*{address.id}"/>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Address Number:</label>
+                    <input type="text" class="form-control" th:field="${address.number}"/>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Street:</label>
+                    <input type="text" class="form-control" placeholder="Street" th:field="${address.street}"/>
+                </div>
+            </div>
+
+
+
+
+            <button type="submit"  class="btn btn-primary form-control btn-block mb-2">Update</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

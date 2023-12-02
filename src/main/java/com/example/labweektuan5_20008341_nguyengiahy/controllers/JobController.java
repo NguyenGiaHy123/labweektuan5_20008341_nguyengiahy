@@ -62,26 +62,7 @@ public class JobController {
         return modelAndView;
     }
 
-    @GetMapping("/jobs/proposed")
-    public String showProposedJobListPaging(Model model,
-                                            @RequestParam("page") Optional<Integer> page,
-                                            @RequestParam("size") Optional<Integer> size,
-                                            @SessionAttribute("candidate-account") Candidate candidate) {
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(10);
 
-        Page<Job> jobPage = jobService.findProposedJobsPaginated(currentPage - 1, pageSize, candidate.getId());
-
-        model.addAttribute("jobPage", jobPage);
-        int totalPage = jobPage.getTotalPages();
-        if (totalPage > 0){
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPage)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
-        return "jobs/proposedJob";
-    }
 
     @GetMapping("/jobs/delete/{id}")
     public ModelAndView delete(
@@ -145,25 +126,5 @@ public class JobController {
         return modelAndView;
     }
 
-    @GetMapping("/jobs/proposed-candidates/{id}")
-    public String showProposedCandidateListPaging(Model model,
-                                            @RequestParam("page") Optional<Integer> page,
-                                            @RequestParam("size") Optional<Integer> size,
-                                            @PathVariable("id") long id) {
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(10);
 
-        Page<Candidate> candidatePage = candidateService.findProposedCandidatesPaginated(currentPage - 1, pageSize, id);
-
-        model.addAttribute("candidatePage", candidatePage);
-        model.addAttribute("jobID", id);
-        int totalPage = candidatePage.getTotalPages();
-        if (totalPage > 0){
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPage)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
-        return "candidates/proposedCandidates";
-    }
 }
